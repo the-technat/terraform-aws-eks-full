@@ -1,3 +1,7 @@
+locals {
+  hubble_fqdn = "network.${var.dns_zone}"
+}
+
 resource "null_resource" "purge_aws_networking" {
   triggers = {
     eks = module.eks.cluster_endpoint # only do this when the cluster changes (e.g create/recreate)
@@ -37,3 +41,50 @@ resource "helm_release" "cilium" {
     null_resource.purge_aws_networking,
   ]
 }
+
+
+resource "kubernetes_ingress_v1" "hubble_ui" {
+  metadata {
+    name      = "hubble-ui"
+    namespace = "kube-system"
+
+    annotations = {
+      "cert-manager.io/cluster-issuer"           = "letsencrypt-prod"
+      "ingress.kubernetes.io/force-ssl-redirect" = "true"
+    }
+  }
+
+  spec {
+    ingress_class_name = local.ingress_class
+
+    rule {
+      host = local.hubble_fqdn
+      http {
+        path {
+          path      = "/"
+          path_type = "Prefix"
+          backend {
+            service {
+              name = "hubble-ui"
+              port {
+                number = 443
+              }
+            }
+          }
+
+        }
+      }
+    }
+
+    tls {
+      hosts       = [local.hubble_fqdn]
+      secret_name = "hubble-tls"
+    }
+  }
+  depends_on = [
+    helm_release.cert_manager_extras,
+    helm_release.contour,
+    helm_release.external_dns,
+  ]
+}
+

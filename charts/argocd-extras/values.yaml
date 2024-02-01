@@ -1,0 +1,8 @@
+onboarding:
+  repo: ""
+  folder: ""
+  branch: "HEAD"
+
+ingress:
+  host: ""
+  class: ""

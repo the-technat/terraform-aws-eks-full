@@ -2,6 +2,10 @@
 
 An opiniated Terraform monolith that deploys an EKS cluster including it's network and add-ons on the cluster for a full Kubernetes experience.
 
+## Usage
+
+Please don't use this module! It's highly opiniated and not meant for others to use.
+
 ## Design Decisions
 
 - Everything is deployed using Terraform

@@ -1,0 +1,8 @@
+onboarding:
+  repo: ${onboarding_repo}
+  folder: ${onboarding_folder}
+  branch: ${onboarding_branch}
+
+ingress:
+  host: ${host}
+  class: ${class}
