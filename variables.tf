@@ -33,6 +33,26 @@ variable "tags" {
 }
 
 ###################
+# GitOps
+###################
+variable "onboarding_repo" {
+  type        = string
+  description = "Repository to configure for Argo CD App of Apps pattern"
+}
+
+variable "onboarding_folder" {
+  type        = string
+  default     = "apps"
+  description = "Folder where Argo CD App definitions are found"
+}
+
+variable "onboarding_branch" {
+  type        = string
+  default     = "HEAD"
+  description = "Branch to use for onboarding repo"
+}
+
+###################
 # IAM
 ###################
 variable "aws_auth_users" {

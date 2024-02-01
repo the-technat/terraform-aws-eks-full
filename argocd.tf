@@ -20,8 +20,11 @@ resource "helm_release" "argocd" {
 
   values = [
     templatefile("${path.module}/helm_values/argocd.yaml", {
-      dns_zone = var.dns_zone
-      class    = local.ingress_class
+      dns_zone          = var.dns_zone
+      class             = local.ingress_class
+      onboarding_folder = var.onboarding_folder
+      onboarding_repo   = var.onboarding_repo
+      onboarding_branch = var.onboarding_branch
     })
   ]
 

@@ -160,9 +160,9 @@ extraObjects:
   spec:
     project: apps
     source:
-      repoURL: https://github.com/the-technat/kubernetes-demo.git
-      targetRevision: HEAD
-      path: apps
+      repoURL: ${onboarding_repo}
+      targetRevision: ${onboarding_branch}
+      path: ${onboarding_folder}
     destination:
       server: https://kubernetes.default.svc
       namespace: argocd
