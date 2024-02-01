@@ -47,6 +47,52 @@ resource "bcrypt_hash" "argocd_password" {
   cleartext = random_password.argocd_password.result
 }
 
+
+resource "kubernetes_ingress_v1" "argocd_server" {
+  metadata {
+    name      = "argocd-server"
+    namespace = kubernetes_namespace_v1.argocd.metadata[0].name
+
+    annotations = {
+      "cert-manager.io/cluster-issuer"           = "letsencrypt-prod"
+      "ingress.kubernetes.io/force-ssl-redirect" = "true"
+    }
+  }
+
+  spec {
+    ingress_class_name = local.ingress_class
+
+    rule {
+      host = local.argocd_fqdn
+      http {
+        path {
+          path      = "/"
+          path_type = "Prefix"
+          backend {
+            service {
+              name = "argocd-server"
+              port {
+                number = 443
+              }
+            }
+          }
+
+        }
+      }
+    }
+
+    tls {
+      hosts       = [local.argocd_fqdn]
+      secret_name = "argocd-tls"
+    }
+  }
+  depends_on = [
+    helm_release.cert_manager_extras,
+    helm_release.contour,
+    helm_release.external_dns,
+  ]
+}
+
 resource "helm_release" "argocd_extras" {
   name       = "argocd-extras"
   repository = "${path.module}/charts"
@@ -56,8 +102,6 @@ resource "helm_release" "argocd_extras" {
 
   values = [
     templatefile("${path.module}/helm_values/argocd_extras.yaml", {
-      class             = local.ingress_class
-      host              = local.argocd_fqdn
       onboarding_folder = var.onboarding_folder
       onboarding_repo   = var.onboarding_repo
       onboarding_branch = var.onboarding_branch
