@@ -1,6 +1,0 @@
-apiVersion: v2
-name: argocd-extras
-version: 0.0.0
-appVersion: 0.0.0
-description: Extras installed with Argo CD
-type: application

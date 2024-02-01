@@ -93,25 +93,44 @@ resource "kubernetes_ingress_v1" "argocd_server" {
   ]
 }
 
-resource "helm_release" "argocd_extras" {
-  name       = "argocd-extras"
-  repository = "${path.module}/charts"
-  chart      = "argocd-extras"
-  namespace  = kubernetes_namespace_v1.argocd.metadata[0].name
-  wait       = true
+resource "argocd_application" "app_of_apps" {
+  metadata {
+    name      = "app-of-apps"
+    namespace = "argocd"
+  }
 
-  values = [
-    templatefile("${path.module}/helm_values/argocd_extras.yaml", {
-      onboarding_folder = var.onboarding_folder
-      onboarding_repo   = var.onboarding_repo
-      onboarding_branch = var.onboarding_branch
-    })
-  ]
+  cascade = false # disable cascading deletion
+  wait    = true
 
-  depends_on = [
-    helm_release.argocd,
-    helm_release.cert_manager_extras,
-    helm_release.contour,
-    helm_release.external_dns,
-  ]
+  spec {
+    project = "default"
+
+    destination {
+      server    = "https://kubernetes.default.svc"
+      namespace = "argocd"
+    }
+
+    source {
+      repo_url        = var.onboarding_repo
+      path            = var.onboarding_folder
+      target_revision = var.onboarding_branch
+    }
+
+    sync_policy {
+      automated {
+        prune       = true
+        self_heal   = true
+        allow_empty = true
+      }
+      sync_options = ["ServerSideApply=true"]
+      retry {
+        limit = "5"
+        backoff {
+          duration     = "30s"
+          max_duration = "2m"
+          factor       = "2"
+        }
+      }
+    }
+  }
 }
