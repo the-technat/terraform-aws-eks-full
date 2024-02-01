@@ -19,3 +19,6 @@ k8sServiceHost: ${cluster_endpoint}
 
 operator:
   replicas: 1
+
+bpf:
+  hostLegacyRouting: false
