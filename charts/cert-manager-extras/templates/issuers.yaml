@@ -9,11 +9,9 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
-      - selector:
-          dnsZones: [] # all?
-        dns01:
-          route53:
-            region: {{.Values.region}}
+    - dns01:
+        route53:
+          region: {{.Values.region}}
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -26,8 +24,6 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:
-      - selector:
-          dnsZones: [] # all?
-        dns01:
-          route53:
-            region: {{.Values.region}}
+    - dns01:
+        route53:
+          region: {{.Values.region}}
