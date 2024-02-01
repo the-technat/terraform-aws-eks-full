@@ -6,6 +6,8 @@ module "eks_full" {
   dns_zone     = "aws.technat.dev" # also specify in the dns_zone data source below
   account_id   = data.aws_caller_identity.current.account_id
   email        = "technat+grapes@technat.ch"
+  onboarding_folder = "apps"
+  onboarding_repo = "https://github.com/the-technat/terraform-aws-eks-post.git"
 
   aws_auth_users = [
     {

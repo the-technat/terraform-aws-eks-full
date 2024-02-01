@@ -1,0 +1,68 @@
+replicas: 1
+
+ingress:
+  enabled: true
+  annotations: 
+    kubernetes.io/ingress.class: ${class}
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/force-ssl-redirect: true
+  hosts:
+    - ${host}
+  tls: 
+    - secretName: grafana-tls
+      hosts:
+        - ${host}
+ 
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: victoriametrics
+        type: prometheus
+        orgId: 1
+        url: http://vmsingle-victoria-metrics-single-server.default.svc.cluster.local:8428
+        access: proxy
+        isDefault: true
+        updateIntervalSeconds: 10
+        editable: true
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: true
+      editable: true
+      options:
+        path: /var/lib/grafana/dashboards/default
+
+dashboards:
+  default:
+    victoriametrics:
+      gnetId: 10229
+      revision: 22
+      datasource: victoriametrics
+    kubernetes:
+      gnetId: 14205
+      revision: 1
+      datasource: victoriametrics
+
+persistence:
+  inMemory:
+    enabled: true
+    sizeLimit: 300Mi
+
+
+adminUser: admin
+# adminPassword: set via argocd set 
+
+serviceAccount:
+  create: true
+  name:
+  annotations:
+    eks.amazonaws.com/role-arn: ${rolearn} # to provide access to cloudwatch
+
+useStatefulSet: true

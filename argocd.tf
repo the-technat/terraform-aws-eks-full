@@ -133,4 +133,6 @@ resource "argocd_application" "app_of_apps" {
       }
     }
   }
+
+  depends_on = [ helm_release.argocd, ]
 }
