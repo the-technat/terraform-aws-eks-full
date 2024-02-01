@@ -7,16 +7,16 @@ metadata:
 spec:
   description: All Apps deployed using Argo CD
   sourceRepos:
-  - '*'
+    - '*'
   destinations:
   - namespace: "*"
-      server: https://kubernetes.default.svc
+    server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: '*'
-      kind: '*'
+    kind: '*'
   namespaceResourceWhitelist:
   - group: '*'
-      kind: '*'
+    kind: '*'
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
