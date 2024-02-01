@@ -1,3 +1,8 @@
+output "ns_records" {
+  value       = aws_route53_zone.primary.name_servers
+  description = "NS records of the created DNS"
+}
+
 output "argocd_password" {
   value       = random_password.argocd_password.result
   description = "Admin Password for Argo CD"
