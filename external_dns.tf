@@ -1,9 +1,6 @@
 locals {
   external_dns_name = "external-dns"
 }
-data "aws_route53_zone" "primary" {
-  name         = var.dns_zone
-}
 resource "kubernetes_namespace_v1" "external_dns" {
   metadata {
     name = local.external_dns_name
