@@ -17,6 +17,7 @@ resource "helm_release" "cert_manager" {
 
   values = [
     templatefile("${path.module}/helm_values/cert_manager.yaml", {
+      rolearn = module.cert_manager_dns_01_irsa.iam_role_arn
     })
   ]
 
