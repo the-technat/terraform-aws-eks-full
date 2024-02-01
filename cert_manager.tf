@@ -57,7 +57,7 @@ module "cert_manager_dns_01_irsa" {
   oidc_providers = {
     main = {
       provider_arn               = module.eks.oidc_provider_arn
-      namespace_service_accounts = ["${local.cert_manager_name}:${local.albc_name}"]
+      namespace_service_accounts = ["${local.cert_manager_name}:${local.cert_manager_name}"]
     }
   }
 
