@@ -48,7 +48,6 @@ An opiniated Terraform monolith that deploys an EKS cluster including it's netwo
 
 | Name | Type |
 |------|------|
-| [aws_route53_zone.primary](https://registry.terraform.io/providers/hashicorp/aws/5.34.0/docs/resources/route53_zone) | resource |
 | [bcrypt_hash.argocd_password](https://registry.terraform.io/providers/viktorradnai/bcrypt/0.1.2/docs/resources/hash) | resource |
 | [helm_release.argocd](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.aws_ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
@@ -75,6 +74,7 @@ An opiniated Terraform monolith that deploys an EKS cluster including it's netwo
 | [random_password.argocd_password](https://registry.terraform.io/providers/hashicorp/random/3.6.0/docs/resources/password) | resource |
 | [aws_ami.eks_default](https://registry.terraform.io/providers/hashicorp/aws/5.34.0/docs/data-sources/ami) | data source |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/5.34.0/docs/data-sources/availability_zones) | data source |
+| [aws_route53_zone.primary](https://registry.terraform.io/providers/hashicorp/aws/5.34.0/docs/data-sources/route53_zone) | data source |
 
 ## Inputs
 
@@ -86,7 +86,7 @@ An opiniated Terraform monolith that deploys an EKS cluster including it's netwo
 | <a name="input_capacity_type"></a> [capacity\_type](#input\_capacity\_type) | Shall we use SPOT instances or on-demand instances? | `string` | `"SPOT"` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the cluster and it's dependend resources | `string` | n/a | yes |
 | <a name="input_desired_count"></a> [desired\_count](#input\_desired\_count) | Starting count of nodes per AZ | `number` | `1` | no |
-| <a name="input_dns_zone"></a> [dns\_zone](#input\_dns\_zone) | A DNS zone you are able to let NS records point to Route53 | `string` | n/a | yes |
+| <a name="input_dns_zone"></a> [dns\_zone](#input\_dns\_zone) | A Route53 hosted DNS zone to use for the cluster (must exist) | `string` | n/a | yes |
 | <a name="input_eks_version"></a> [eks\_version](#input\_eks\_version) | Cluster version to use | `string` | `"1.28"` | no |
 | <a name="input_email"></a> [email](#input\_email) | Mail used for ACME and other things | `string` | n/a | yes |
 | <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | A list of instance types to use in the cluster, the order represents the priority | `list(string)` | <pre>[<br>  "t3a.medium",<br>  "t3.medium",<br>  "t2.medium"<br>]</pre> | no |
@@ -97,7 +97,7 @@ An opiniated Terraform monolith that deploys an EKS cluster including it's netwo
 | <a name="input_onboarding_repo"></a> [onboarding\_repo](#input\_onboarding\_repo) | Repository to configure for Argo CD App of Apps pattern | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region you are deploying to | `string` | n/a | yes |
 | <a name="input_service_cidr"></a> [service\_cidr](#input\_service\_cidr) | Service CIDR used by kube-proxy and it's replacements | `string` | `"10.127.0.0/16"` | no |
-| <a name="input_single_nat_gateway"></a> [single\_nat\_gateway](#input\_single\_nat\_gateway) | For true egress-traffic HA you would need at least a NAT gateway per AZ | `bool` | `true` | no |
+| <a name="input_single_nat_gateway"></a> [single\_nat\_gateway](#input\_single\_nat\_gateway) | For true HA egress-traffic disable this toggle to deploy a NAT gateway per AZ | `bool` | `true` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to all resources | `map(string)` | <pre>{<br>  "managed-by": "terraform",<br>  "repo": "github.com/the-technat/kubernetes-demo"<br>}</pre> | no |
 | <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | CIDR range to use for the VPC/subnets used by the cluster | `string` | `"10.123.0.0/16"` | no |
 

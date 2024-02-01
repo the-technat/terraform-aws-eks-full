@@ -10,7 +10,7 @@ variable "region" {
 
 variable "dns_zone" {
   type        = string
-  description = "A DNS zone you are able to let NS records point to Route53"
+  description = "A Route53 hosted DNS zone to use for the cluster (must exist)"
 }
 
 variable "account_id" {
