@@ -1,0 +1,9 @@
+clusterName: ${cluster_name}
+region: ${region}
+vpcId: ${vpcID}
+
+serviceAccount:
+  name: ${sa_name}
+  annotations:
+    eks.amazonaws.com/role-arn: ${role_arn}
+

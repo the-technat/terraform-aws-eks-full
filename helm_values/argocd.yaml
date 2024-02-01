@@ -1,0 +1,177 @@
+configs:
+  cm:
+    url: "https://cd.${dns_zone}"
+    server.rbac.log.enforce.enable: "true"
+    exec.enabled: "true"
+    admin.enabled: "true"
+  params:
+    server.insecure: false
+  rbac:
+    policy.default: role:readonly
+
+server:
+  service:
+    annotations:
+      projectcontour.io/upstream-protocol.tls: "443" # requires configs.params.server.insecure=false
+  priorityClassName: "system-cluster-critical"
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+  metrics:
+    enabled: true
+  resources:
+    limits:
+      cpu: 500m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+  controller:
+    priorityClassName: "system-cluster-critical"
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: ["ALL"]
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+    metrics:
+      enabled: true
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 50m
+        memory: 128Mi
+
+  notifications:
+    priorityClassName: "system-cluster-critical"
+    containerSecurityContext:
+      runAsNonRoot: true
+      readOnlyRootFilesystem: true
+      allowPrivilegeEscalation: false
+      seccompProfile:
+        type: RuntimeDefault
+      capabilities:
+        drop:
+          - ALL
+    metrics:
+      enabled: true
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
+
+  redis:
+    priorityClassName: "system-cluster-critical"
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: ["ALL"]
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+    metrics:
+      enabled: true
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 5m
+          memory: 16Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
+
+  repoServer:
+    priorityClassName: "system-cluster-critical"
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: ["ALL"]
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+    metrics:
+      enabled: true
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 50m
+        memory: 64Mi
+
+  applicationSet:
+    priorityClassName: "system-cluster-critical"
+    containerSecurityContext:
+      runAsNonRoot: true
+      readOnlyRootFilesystem: true
+      allowPrivilegeEscalation: false
+      seccompProfile:
+        type: RuntimeDefault
+      capabilities:
+        drop:
+          - ALL
+    metrics:
+      enabled: true
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
+        
+extraObjects: 
+- apiVersion: argoproj.io/v1alpha1
+  kind: AppProject
+  metadata:
+    name: apps
+    namespace: argocd
+  spec:
+    description: All Apps deployed using Argo CD
+    sourceRepos:
+    - '*'
+    destinations:
+    - namespace: "*"
+      server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+    namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    name: app-of-apps
+    namespace: argocd
+  spec:
+    project: apps
+    source:
+      repoURL: https://github.com/the-technat/kubernetes-demo.git
+      targetRevision: HEAD
+      path: apps
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    syncPolicy:
+      automated: 
+        prune: true
+        selfHeal: true 
+        allowEmpty: true
+      syncOptions:    
+      - ServerSideApply=true
+      - CreateNamespace=true 
+     

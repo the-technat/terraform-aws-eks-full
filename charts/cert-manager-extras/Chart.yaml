@@ -1,0 +1,6 @@
+apiVersion: v2
+name: cert-manager-extras
+version: 0.0.0
+appVersion: 0.0.0
+description: Extras installed with cert-manager
+type: application

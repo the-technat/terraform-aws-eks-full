@@ -1,0 +1,14 @@
+serviceAccount:
+  name: ${sa_name}
+  annotations:
+    eks.amazonaws.com/role-arn: ${role_arn}
+
+env:
+  - name: AWS_DEFAULT_REGION
+    value: ${region}
+triggerLoopOnEvent: true
+policy: sync
+registry: txt
+txtOwnerId: ${cluster_name}
+provider: 
+  name: aws

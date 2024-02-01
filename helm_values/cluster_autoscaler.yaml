@@ -1,0 +1,11 @@
+autoDiscovery:
+  clusterName: ${cluster_name}
+
+awsRegion: ${region}
+cloudProvider: aws
+
+rbac:
+  serviceAccount:
+    name: ${sa_name}
+    annotations:
+      eks.amazonaws.com/role-arn: ${role_arn}
