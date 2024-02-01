@@ -67,7 +67,7 @@ resource "kubernetes_ingress_v1" "hubble_ui" {
             service {
               name = "hubble-ui"
               port {
-                number = 443
+                number = 80
               }
             }
           }
