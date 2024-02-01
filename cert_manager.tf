@@ -35,6 +35,7 @@ resource "helm_release" "cert_manager_extras" {
     templatefile("${path.module}/helm_values/cert_manager_extras.yaml", {
       email  = var.email
       region = var.region
+      zoneid = aws_route53_zone.primary.zone_id
     })
   ]
 

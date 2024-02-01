@@ -1,3 +1,4 @@
 region: ${region}
 acme:
   email: ${email}
+zoneid: ${zoneid}
