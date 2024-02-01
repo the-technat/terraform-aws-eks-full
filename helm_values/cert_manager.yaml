@@ -1,1 +1,5 @@
 installCRDs: true
+
+# https://cert-manager.io/docs/configuration/acme/dns01/route53/#service-annotation
+securityContext:
+  fsGroup: 1001
