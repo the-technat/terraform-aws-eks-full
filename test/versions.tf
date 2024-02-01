@@ -24,5 +24,8 @@ terraform {
     hetznerdns = {
       source = "timohirt/hetznerdns"
     }
+    argocd = {
+      source = "oboukili/argocd"
+    }
   }
 }

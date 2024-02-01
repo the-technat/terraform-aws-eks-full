@@ -2,7 +2,7 @@ module "eks_full" {
   source = "../"
 
   cluster_name = "kiwi"
-  region       = "eu-west-1"       # also specify in AWS provider
+  region       = "eu-west-1"       # also specify AWS_REGION env var
   dns_zone     = "aws.technat.dev" # also specify in the dns_zone data source below
   account_id   = data.aws_caller_identity.current.account_id
   email        = "technat+grapes@technat.ch"
