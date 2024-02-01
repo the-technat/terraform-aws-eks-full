@@ -20,6 +20,7 @@ k8sServiceHost: ${cluster_endpoint}
 operator:
   replicas: 1
 
+enableIPv4Masquerade: true
 bpf:
   hostLegacyRouting: false
   masquerade: true
