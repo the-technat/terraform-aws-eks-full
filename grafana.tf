@@ -46,7 +46,9 @@ module "grafana_irsa" {
   version = "5.33.1"
 
   role_name_prefix           = "grafana"
-  role_policy_arns = ["arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"]
+  role_policy_arns = {
+    "CloudWatchReadOnlyAccess" = "arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"
+ }
 
 
   oidc_providers = {

@@ -25,6 +25,11 @@ datasources:
         isDefault: true
         updateIntervalSeconds: 10
         editable: true
+      - name: CloudWatch
+        type: cloudwatch
+        jsonData:
+          authType: default
+          defaultRegion: ${region}
 
 dashboardProviders:
   dashboardproviders.yaml:
@@ -49,6 +54,22 @@ dashboards:
       gnetId: 14205
       revision: 1
       datasource: victoriametrics
+    aws_ec2:
+      gnetId: 11265
+      revision: 1
+      datasource: cloudwatch
+    aws_ec2_1:
+      gnetId: 617
+      revision: 1
+      datasource: cloudwatch
+    aws_ebs:
+      gnetId: 623
+      revision: 1
+      datasource: cloudwatch
+    aws_nlb:
+      gnetId: 12111
+      revision: 1
+      datasource: cloudwatch
 
 persistence:
   inMemory:
