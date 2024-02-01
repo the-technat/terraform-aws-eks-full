@@ -48,7 +48,7 @@ dashboards:
   default:
     victoriametrics:
       gnetId: 10229
-      revision: 22
+      revision: 33
       datasource: victoriametrics
     kubernetes:
       gnetId: 14205
@@ -56,19 +56,19 @@ dashboards:
       datasource: victoriametrics
     aws_ec2:
       gnetId: 11265
-      revision: 1
+      revision: 2
       datasource: cloudwatch
     aws_ec2_1:
       gnetId: 617
-      revision: 1
+      revision: 4
       datasource: cloudwatch
     aws_ebs:
       gnetId: 623
-      revision: 1
+      revision: 5
       datasource: cloudwatch
     aws_nlb:
       gnetId: 12111
-      revision: 1
+      revision: 2
       datasource: cloudwatch
 
 persistence:
