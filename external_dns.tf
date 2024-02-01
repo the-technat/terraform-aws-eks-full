@@ -24,8 +24,7 @@ resource "helm_release" "external_dns" {
   ]
 
   depends_on = [
-    helm_release.cluster_autoscaler,
-    module.aws_external_dns_irsa
+    helm_release.cluster_autoscaler
   ]
 }
 

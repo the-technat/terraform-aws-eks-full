@@ -23,7 +23,6 @@ resource "helm_release" "contour" {
   ]
 
   depends_on = [
-    helm_release.cilium,
-    helm_release.aws_load_balancer_controller,
+    helm_release.cluster_autoscaler,
   ]
 }

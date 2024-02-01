@@ -2,41 +2,41 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-name: apps
-namespace: argocd
+  name: apps
+  namespace: argocd
 spec:
-description: All Apps deployed using Argo CD
-sourceRepos:
-- '*'
-destinations:
-- namespace: "*"
-    server: https://kubernetes.default.svc
-clusterResourceWhitelist:
-- group: '*'
-    kind: '*'
-namespaceResourceWhitelist:
-- group: '*'
-    kind: '*'
+  description: All Apps deployed using Argo CD
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: "*"
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+  - group: '*'
+      kind: '*'
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-name: app-of-apps
-namespace: argocd
+  name: app-of-apps
+  namespace: argocd
 spec:
-project: apps
-source:
+  project: apps
+  source:
     repoURL: {{.Values.onboarding.repo}}
     targetRevision: {{.Values.onboarding.branch}}
     path: {{.Values.onboarding.folder}}
-destination:
+  destination:
     server: https://kubernetes.default.svc
     namespace: argocd
-syncPolicy:
+  syncPolicy:
     automated: 
-    prune: true
-    selfHeal: true 
-    allowEmpty: true
+      prune: true
+      selfHeal: true 
+      allowEmpty: true
     syncOptions:    
     - ServerSideApply=true
     - CreateNamespace=true 

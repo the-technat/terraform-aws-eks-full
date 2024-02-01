@@ -20,6 +20,6 @@ resource "helm_release" "metrics_server" {
   ]
 
   depends_on = [
-    helm_release.cilium,
+    helm_release.cluster_autoscaler,
   ]
 }

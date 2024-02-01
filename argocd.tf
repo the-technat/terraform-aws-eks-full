@@ -33,8 +33,7 @@ resource "helm_release" "argocd" {
   }
 
   depends_on = [
-    module.eks,
-    helm_release.cilium,
+    helm_release.cluster_autoscaler,
   ]
 }
 

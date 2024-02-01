@@ -26,7 +26,6 @@ resource "helm_release" "aws_load_balancer_controller" {
 
   depends_on = [
     helm_release.cilium,
-    module.aws_load_balancer_controller_irsa,
   ]
 }
 
