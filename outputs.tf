@@ -1,8 +1,3 @@
-output "ns_records" {
-  value       = try(aws_route53_zone.primary.name_servers, null)
-  description = "NS records for you to add"
-}
-
 output "argocd_password" {
   value       = random_password.argocd_password.result
   description = "Admin Password for Argo CD"
