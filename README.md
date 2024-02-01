@@ -27,9 +27,9 @@ An opiniated Terraform monolith that deploys an EKS cluster including it's netwo
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.34.0 |
 | <a name="provider_bcrypt"></a> [bcrypt](#provider\_bcrypt) | 0.1.2 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.12.1 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.25.2 |
-| <a name="provider_null"></a> [null](#provider\_null) | n/a |
+| <a name="provider_null"></a> [null](#provider\_null) | 3.2.2 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.6.0 |
 
 ## Modules
@@ -92,6 +92,9 @@ An opiniated Terraform monolith that deploys an EKS cluster including it's netwo
 | <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | A list of instance types to use in the cluster, the order represents the priority | `list(string)` | <pre>[<br>  "t3a.medium",<br>  "t3.medium",<br>  "t2.medium"<br>]</pre> | no |
 | <a name="input_max_count"></a> [max\_count](#input\_max\_count) | Max number of nodes per AZ at any time | `number` | `1` | no |
 | <a name="input_min_count"></a> [min\_count](#input\_min\_count) | Minimal number of nodes per AZ at any time | `number` | `1` | no |
+| <a name="input_onboarding_branch"></a> [onboarding\_branch](#input\_onboarding\_branch) | Branch to use for onboarding repo | `string` | `"HEAD"` | no |
+| <a name="input_onboarding_folder"></a> [onboarding\_folder](#input\_onboarding\_folder) | Folder where Argo CD App definitions are found | `string` | `"apps"` | no |
+| <a name="input_onboarding_repo"></a> [onboarding\_repo](#input\_onboarding\_repo) | Repository to configure for Argo CD App of Apps pattern | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region you are deploying to | `string` | n/a | yes |
 | <a name="input_service_cidr"></a> [service\_cidr](#input\_service\_cidr) | Service CIDR used by kube-proxy and it's replacements | `string` | `"10.127.0.0/16"` | no |
 | <a name="input_single_nat_gateway"></a> [single\_nat\_gateway](#input\_single\_nat\_gateway) | For true egress-traffic HA you would need at least a NAT gateway per AZ | `bool` | `true` | no |

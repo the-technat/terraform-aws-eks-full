@@ -77,7 +77,7 @@ variable "vpc_cidr" {
 variable "single_nat_gateway" {
   type        = bool
   default     = true
-  description = "For true egress-traffic HA you would need at least a NAT gateway per AZ"
+  description = "For true HA egress-traffic disable this toggle to deploy a NAT gateway per AZ"
 }
 
 variable "service_cidr" {
