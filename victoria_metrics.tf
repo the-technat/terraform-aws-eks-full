@@ -24,5 +24,6 @@ resource "helm_release" "vm" {
 
   depends_on = [
     helm_release.aws_ebs_csi_driver,
+    helm_release.ingress_nginx,
   ]
 }

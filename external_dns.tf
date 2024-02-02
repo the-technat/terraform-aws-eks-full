@@ -24,7 +24,8 @@ resource "helm_release" "external_dns" {
   ]
 
   depends_on = [
-    helm_release.cluster_autoscaler
+    helm_release.cilium,
+    module.eks,
   ]
 }
 
