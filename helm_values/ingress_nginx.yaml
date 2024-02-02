@@ -22,9 +22,3 @@ controller:
 
 defaultBackend:
   enabled: true
-  name: defaultbackend
-  image:
-    registry: ghcr.io
-    image: the-technat/alleaffengaffen
-    tag: "main"
-    
