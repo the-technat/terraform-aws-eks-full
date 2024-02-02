@@ -8,8 +8,5 @@ serviceAccount:
   annotations:
     eks.amazonaws.com/role-arn: ${rolearn}
 
-# we scrape via service, not via pod's directly
-# therefore we removed the pod-based scraping job
-serviceAnnotations:
-  prometheus.io/port: "9402"
-  prometheus.io/scrape: "true"
+prometheus:
+  enabled: true
