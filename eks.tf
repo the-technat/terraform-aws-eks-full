@@ -10,6 +10,9 @@ module "eks" {
       most_recent = true
     }
   }
+  
+  # Monitoring
+  cloudwatch_log_group_retention_in_days = 1
 
   # Networking
   vpc_id                         = module.vpc.vpc_id
@@ -44,6 +47,8 @@ module "eks" {
     instance_types = var.instance_types
     ami_id         = data.aws_ami.eks_default.image_id
     desired_size   = var.desired_count
+
+    enable_monitoring = true
 
     # IAM
     iam_role_additional_policies = {
