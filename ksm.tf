@@ -17,7 +17,6 @@ resource "helm_release" "ksm" {
 
   values = [
     templatefile("${path.module}/helm_values/ksm.yaml", {
-      class = local.ingress_class
     })
   ]
 
