@@ -1,3 +1,6 @@
+global:
+  addPrometheusAnnotations: true
+
 configs:
   cm:
     url: "https://cd.${dns_zone}"

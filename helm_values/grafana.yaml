@@ -40,7 +40,7 @@ dashboardProviders:
       folder: ''
       type: file
       disableDeletion: true
-      editable: true
+      editable: false
       options:
         path: /var/lib/grafana/dashboards/default
 
@@ -83,12 +83,10 @@ dashboards:
       revision: 2
       datasource: victoriametrics
 
-
 persistence:
   inMemory:
     enabled: true
     sizeLimit: 300Mi
-
 
 adminUser: admin
 # adminPassword: set via argocd set 
