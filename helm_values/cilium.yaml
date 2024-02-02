@@ -4,7 +4,7 @@ cluster:
 rollOutCiliumPods: true
 
 prometheus:
-  enabled: false
+  enabled: true
 dashboards:
  enabled: true
  namespace: ${grafana_ns}
@@ -25,7 +25,7 @@ hubble:
     enabled: true
     rollOutPods: true
     prometheus:
-      enabled: false
+      enabled: true
   ui:
     enabled: true
     rollOutPods: true
@@ -47,7 +47,7 @@ operator:
   replicas: 1
   rollOutPods: true
   prometheus:
-    enabled: false
+    enabled: true
   dashboards:
     enabled: true
     namespace: ${grafana_ns}
