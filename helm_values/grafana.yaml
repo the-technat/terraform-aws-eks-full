@@ -71,9 +71,18 @@ dashboards:
       revision: 2
       datasource: cloudwatch
     ingress_nginx:
-      gnetId: 16677
+      gnetId: 14314
+      revision: 2
+      datasource: victoriametrics
+    cluster_autoscaler:
+      gnetId: 3831
       revision: 1
       datasource: victoriametrics
+    coredns:
+      gnetId: 14981
+      revision: 2
+      datasource: victoriametrics
+
 
 persistence:
   inMemory:
