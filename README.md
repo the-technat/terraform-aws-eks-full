@@ -14,6 +14,7 @@ Currently most of the stuff the module deploys works, however:
 - No app is secure (missing securityContexts)
 - No app has resource requests/limits 
 - No app has network policies
+- No app has authentication (and those who have, just have an admin only suitable for Terraform)
 
 ## Design Decisions
 

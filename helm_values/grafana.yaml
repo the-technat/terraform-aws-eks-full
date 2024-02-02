@@ -17,71 +17,76 @@ datasources:
   datasources.yaml:
     apiVersion: 1
     datasources:
-      - name: victoriametrics
+      - name: VictoriaMetrics
         type: prometheus
         orgId: 1
         url: http://victoria-metrics-victoria-metrics-single-server.victoria-metrics.svc.cluster.local:8428
         access: proxy
         isDefault: true
         updateIntervalSeconds: 10
-        editable: true
+        editable: false
       - name: CloudWatch
         type: cloudwatch
         jsonData:
           authType: default
           defaultRegion: ${region}
+        editable: false
 
 dashboardProviders:
   dashboardproviders.yaml:
     apiVersion: 1
     providers:
-    - name: 'default'
+    - name: 'upstream'
       orgId: 1
-      folder: ''
+      folder: 'GrafanaLabs'
       type: file
       disableDeletion: true
       editable: false
       options:
-        path: /var/lib/grafana/dashboards/default
+        path: /var/lib/grafana/dashboards/upstream
 
 dashboards:
   default:
     victoriametrics:
       gnetId: 10229
       revision: 33
-      datasource: victoriametrics
+      datasource: VictoriaMetrics
     kubernetes:
       gnetId: 14205
       revision: 1
-      datasource: victoriametrics
+      datasource: VictoriaMetrics
     aws_ec2:
       gnetId: 11265
       revision: 2
-      datasource: cloudwatch
+      datasource: CloudWatch
     aws_ec2_1:
       gnetId: 617
       revision: 4
-      datasource: cloudwatch
+      datasource: CloudWatch
     aws_ebs:
       gnetId: 623
       revision: 5
-      datasource: cloudwatch
+      datasource: CloudWatch
     aws_nlb:
       gnetId: 12111
       revision: 2
-      datasource: cloudwatch
+      datasource: CloudWatch
     ingress_nginx:
       gnetId: 14314
       revision: 2
-      datasource: victoriametrics
+      datasource: VictoriaMetrics
     cluster_autoscaler:
       gnetId: 3831
       revision: 1
-      datasource: victoriametrics
+      datasource: VictoriaMetrics
     coredns:
       gnetId: 14981
       revision: 2
-      datasource: victoriametrics
+      datasource: VictoriaMetrics
+
+service:
+  annotations:
+    prometheus.io/scrape: "true"
 
 persistence:
   inMemory:
