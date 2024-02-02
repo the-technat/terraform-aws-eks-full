@@ -118,7 +118,7 @@ variable "max_count" {
 
 variable "instance_types" {
   type        = list(string)
-  default     = ["t3a.medium", "t3.medium", "t2.medium"]
+  default     = ["t3a.large", "t3.large", "t2.large"]
   description = "A list of instance types to use in the cluster, the order represents the priority"
 }
 

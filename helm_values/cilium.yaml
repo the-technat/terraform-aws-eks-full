@@ -1,14 +1,19 @@
 cluster:
   name: ${cluster_name}
 
+rollOutCiliumPods: true
+
 hubble:
   relay: 
     enabled: true
+    rollOutPods: true
   ui:
     enabled: true
+    rollOutPods: true
 
 eni:
   enabled: true
+  # this is required because the small instances we use all have a maximum of 17 ENI IPs to allocate to pods
   awsEnablePrefixDelegation: true
 ipam:
   mode: eni
@@ -20,6 +25,7 @@ k8sServiceHost: ${cluster_endpoint}
 
 operator:
   replicas: 1
+  rollOutPods: true
 
 enableIPv4Masquerade: true
 bpf:
