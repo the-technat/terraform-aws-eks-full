@@ -6,13 +6,18 @@ An opiniated Terraform monolith that deploys an EKS cluster including it's netwo
 
 Please don't use this module! It's highly opiniated and not meant for others to use.
 
+## Technical Debts
+
+Currently most of the stuff the module deploys works, however:
+- Many things can't be controlled from the outside (like feature toggles)
+- No app is HA (to be discussed if needed or added as feature toggle)
+- No app is secure (missing securityContexts)
+- No app has resource requests/limits 
+
 ## Design Decisions
 
-- Everything is deployed using Terraform
-- Dependencies shall be strict and clear:
-  - Metrics can be enabled beforehand (it using service discovery)
-  - Terraform depends_on shall be modeled correctly
-  - Using "extra" charts to deploy ingress resources is encouraged
+- Everything is deployed using Terraform 
+- Dependencies shall be strict and clear, providing seamless deploy and destroy runs 
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -65,9 +70,10 @@ Please don't use this module! It's highly opiniated and not meant for others to 
 | [helm_release.cert_manager_extras](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.cilium](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.cluster_autoscaler](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [helm_release.contour](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.external_dns](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.grafana](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.ingress_nginx](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.ksm](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.metrics_server](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.vm](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubernetes_ingress_v1.argocd_server](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/ingress_v1) | resource |
@@ -77,9 +83,10 @@ Please don't use this module! It's highly opiniated and not meant for others to 
 | [kubernetes_namespace_v1.aws_ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
 | [kubernetes_namespace_v1.cert_manager](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
 | [kubernetes_namespace_v1.cluster_autoscaler](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
-| [kubernetes_namespace_v1.contour](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
 | [kubernetes_namespace_v1.external_dns](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
 | [kubernetes_namespace_v1.grafana](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.ingress_nginx](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.ksm](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
 | [kubernetes_namespace_v1.metrics_server](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
 | [kubernetes_namespace_v1.vm](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
 | [null_resource.purge_aws_networking](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
