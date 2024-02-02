@@ -5,6 +5,7 @@ server:
     loggerFormat: json
     promscrape.maxDroppedTargets: "16000"
     maxLabelsPerTimeseries: "50"
+    promscrape.maxScrapeSize: "32MB"
   persistentVolume:
     enabled: true
     storageClass: "ebs"
