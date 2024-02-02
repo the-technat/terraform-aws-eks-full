@@ -9,6 +9,12 @@ output "argocd_password" {
   sensitive   = true
 }
 
+output "grafana_password" {
+  value = random_password.grafana_password.result
+  description = "Admin Password for Grafana"
+  sensitive = true
+}
+
 output "cluster_endpoint" {
   description = "Endpoint for EKS control plane."
   value       = module.eks.cluster_endpoint
