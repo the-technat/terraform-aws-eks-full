@@ -20,6 +20,7 @@ resource "null_resource" "purge_aws_networking" {
   # That's why it's enough to delete them once as soon as the control-plane is ready
   depends_on = [
     module.eks.aws_eks_cluster,
+    module.vpc,
   ]
 }
 

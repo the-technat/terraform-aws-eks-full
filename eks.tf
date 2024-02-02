@@ -77,4 +77,6 @@ module "eks" {
   }
 
   tags = var.tags
+
+  depends_on = [ module.vpc, ]
 }
