@@ -4,6 +4,7 @@ server:
     envflag.prefix: VM_
     loggerFormat: json
     promscrape.maxDroppedTargets: "16000"
+    maxLabelsPerTimeseries: "50"
   persistentVolume:
     enabled: true
     storageClass: "ebs"
