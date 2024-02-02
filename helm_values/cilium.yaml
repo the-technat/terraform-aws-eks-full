@@ -3,10 +3,25 @@ cluster:
 
 rollOutCiliumPods: true
 
+prometheus:
+  enabled: true
+
 hubble:
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - icmp
+      - http
+  dashboards:
+    enabled: true
   relay: 
     enabled: true
     rollOutPods: true
+    prometheus:
+      enabled: true
   ui:
     enabled: true
     rollOutPods: true
@@ -27,3 +42,5 @@ k8sServiceHost: ${cluster_endpoint}
 operator:
   replicas: 1
   rollOutPods: true
+  prometheus:
+    enabled: true

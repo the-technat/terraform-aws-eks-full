@@ -27,7 +27,7 @@ resource "helm_release" "cilium" {
   name       = "cilium"
   repository = "https://helm.cilium.io"
   chart      = "cilium"
-  version    = "1.14.6"
+  version    = "1.15.0"
   namespace  = "kube-system"
   wait       = true
   timeout    = 3600
