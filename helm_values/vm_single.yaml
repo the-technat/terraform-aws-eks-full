@@ -173,8 +173,9 @@ server:
             - action: drop
               source_labels: [ __meta_kubernetes_pod_container_init ]
               regex: true
-            - action: keep_if_equal
-              source_labels: [ __meta_kubernetes_service_annotation_prometheus_io_port, __meta_kubernetes_pod_container_port_number ]
+            # the following rules is meaningful but I don't want to adjust every single addon
+            # - action: keep_if_equal
+            #   source_labels: [ __meta_kubernetes_service_annotation_prometheus_io_port, __meta_kubernetes_pod_container_port_number ]
             - source_labels:
                 [ __meta_kubernetes_service_annotation_prometheus_io_scrape ]
               action: keep
@@ -230,8 +231,8 @@ server:
             - action: drop
               source_labels: [ __meta_kubernetes_pod_container_init ]
               regex: true
-            - action: keep_if_equal
-              source_labels: [ __meta_kubernetes_service_annotation_prometheus_io_port, __meta_kubernetes_pod_container_port_number ]
+            # - action: keep_if_equal
+              # source_labels: [ __meta_kubernetes_service_annotation_prometheus_io_port, __meta_kubernetes_pod_container_port_number ]
             - source_labels:
                 [ __meta_kubernetes_service_annotation_prometheus_io_scrape_slow ]
               action: keep
@@ -310,8 +311,8 @@ server:
             - action: drop
               source_labels: [ __meta_kubernetes_pod_container_init ]
               regex: true
-            - action: keep_if_equal
-              source_labels: [ __meta_kubernetes_pod_annotation_prometheus_io_port, __meta_kubernetes_pod_container_port_number ]
+            # - action: keep_if_equal
+            #   source_labels: [ __meta_kubernetes_pod_annotation_prometheus_io_port, __meta_kubernetes_pod_container_port_number ]
             - source_labels: [ __meta_kubernetes_pod_annotation_prometheus_io_scrape ]
               action: keep
               regex: true
@@ -337,6 +338,3 @@ server:
 
     # -- Extra scrape configs that will be appended to `server.scrape.config`
     extraScrapeConfigs: []
-
-# -- Add extra specs dynamically to this chart
-extraObjects: []
