@@ -11,6 +11,7 @@ hubble:
     enabled: true
     rollOutPods: true
 
+egressMasqueradeInterfaces: eth0
 eni:
   enabled: true
   # this is required because the small instances we use all have a maximum of 17 ENI IPs to allocate to pods
@@ -26,8 +27,3 @@ k8sServiceHost: ${cluster_endpoint}
 operator:
   replicas: 1
   rollOutPods: true
-
-enableIPv4Masquerade: true
-bpf:
-  hostLegacyRouting: false
-  masquerade: true
