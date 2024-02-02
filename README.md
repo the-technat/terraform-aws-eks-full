@@ -13,11 +13,13 @@ Currently most of the stuff the module deploys works, however:
 - No app is HA (to be discussed if needed or added as feature toggle)
 - No app is secure (missing securityContexts)
 - No app has resource requests/limits 
+- No app has network policies
 
 ## Design Decisions
 
 - Everything is deployed using Terraform 
 - Dependencies shall be strict and clear, providing seamless deploy and destroy runs 
+- Everything is scraped using service-based discovery
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

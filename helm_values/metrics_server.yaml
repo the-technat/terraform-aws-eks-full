@@ -1,0 +1,7 @@
+service:
+  labels: 
+   kubernetes.io/cluster-service: "true"
+   kubernetes.io/name: "Metrics-server"
+
+metrics:
+  enabled: true
