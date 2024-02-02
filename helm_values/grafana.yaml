@@ -46,7 +46,7 @@ dashboardProviders:
         path: /var/lib/grafana/dashboards/upstream
 
 dashboards:
-  default:
+  upstream:
     victoriametrics:
       gnetId: 10229
       revision: 33
@@ -88,11 +88,13 @@ service:
   annotations:
     prometheus.io/scrape: "true"
 
+# Please note: configs defined in YAML here represent the source of thruth
+# configs done in the UI will persist pod-restarts due to the PV
+# but in case the PV is lost (which can happen), the configs will be gone
 persistence:
-  inMemory:
-    enabled: true
-    sizeLimit: 300Mi
-
+  enabled: true
+  storageClassName: ebs
+ 
 adminUser: admin
 # adminPassword: set via argocd set 
 
