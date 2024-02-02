@@ -6,6 +6,7 @@ configs:
     admin.enabled: "true"
   params:
     server.insecure: false
+    server.repo.server.timeout.seconds: "20" 
   rbac:
     policy.default: role:readonly
 
