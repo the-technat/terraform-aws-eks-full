@@ -87,6 +87,7 @@ dashboards:
 service:
   annotations:
     prometheus.io/scrape: "true"
+    prometheus.io/port: "3000"
 
 # Please note: configs defined in YAML here represent the source of thruth
 # configs done in the UI will persist pod-restarts due to the PV
