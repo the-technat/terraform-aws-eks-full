@@ -110,3 +110,11 @@ sidecar:
   resource: configmap # don't read secrets in your namespace!
 
 useStatefulSet: true
+
+grafana.ini:
+  auth:
+    disable_login_form: "true"
+    anonymous:
+      enabled: "true"
+      org_name: "Main Org."
+      org_role: "Viewer"
