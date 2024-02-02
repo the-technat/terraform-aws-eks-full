@@ -70,6 +70,10 @@ dashboards:
       gnetId: 12111
       revision: 2
       datasource: cloudwatch
+    ingress_nginx:
+      gnetId: 16677
+      revision: 1
+      datasource: victoriametrics
 
 persistence:
   inMemory:

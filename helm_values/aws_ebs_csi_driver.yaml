@@ -1,4 +1,5 @@
 controller:
+  enableMetrics: true
   region: ${region}
   serviceAccount:
     create: true
