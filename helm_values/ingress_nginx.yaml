@@ -1,4 +1,5 @@
 controller:
+  kind: DaemonSet
   extraArgs:
     enable-ssl-passthrough: ""
   service:
