@@ -13,7 +13,7 @@ resource "helm_release" "contour" {
   name       = local.contour_name
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "contour"
-  version    = "15.2.0"
+  version    = "15.3.4"
   namespace  = kubernetes_namespace_v1.contour.metadata[0].name
 
   values = [
