@@ -5,6 +5,9 @@ rollOutCiliumPods: true
 
 prometheus:
   enabled: true
+dashboards:
+ enabled: true
+ namespace: ${grafana_ns}
 
 hubble:
   metrics:
@@ -17,6 +20,7 @@ hubble:
       - http
   dashboards:
     enabled: true
+    namespace: ${grafana_ns}
   relay: 
     enabled: true
     rollOutPods: true
@@ -44,3 +48,6 @@ operator:
   rollOutPods: true
   prometheus:
     enabled: true
+  dashboards:
+    enabled: true
+    namespace: ${grafana_ns}

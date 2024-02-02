@@ -35,6 +35,7 @@ resource "helm_release" "cilium" {
     templatefile("${path.module}/helm_values/cilium.yaml", {
       cluster_endpoint = trim(module.eks.cluster_endpoint, "https://") # used for kube-proxy replacement
       cluster_name     = var.cluster_name
+      grafana_ns       = local.grafana_name
     })
   ]
   depends_on = [
