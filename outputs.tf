@@ -10,9 +10,9 @@ output "argocd_password" {
 }
 
 output "grafana_password" {
-  value = random_password.grafana_password.result
+  value       = random_password.grafana_password.result
   description = "Admin Password for Grafana"
-  sensitive = true
+  sensitive   = true
 }
 
 output "cluster_endpoint" {

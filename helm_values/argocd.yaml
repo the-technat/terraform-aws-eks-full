@@ -11,9 +11,6 @@ configs:
     policy.default: role:readonly
 
 server:
-  service:
-    annotations:
-      projectcontour.io/upstream-protocol.tls: "443" # requires configs.params.server.insecure=false
   priorityClassName: "system-cluster-critical"
   containerSecurityContext:
     allowPrivilegeEscalation: false

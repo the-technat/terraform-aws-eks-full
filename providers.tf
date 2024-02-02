@@ -25,12 +25,12 @@ provider "helm" {
 }
 
 provider "argocd" {
-    username = "admin"
-    password = random_password.argocd_password.result
+  username = "admin"
+  password = random_password.argocd_password.result
 
-    port_forward_with_namespace  = "argocd"
+  port_forward_with_namespace = "argocd"
 
-    kubernetes {
+  kubernetes {
     host                   = module.eks.cluster_endpoint
     cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
 
@@ -41,5 +41,5 @@ provider "argocd" {
       args = ["eks", "get-token", "--cluster-name", module.eks.cluster_name, "--output", "json"]
     }
   }
-  
+
 }

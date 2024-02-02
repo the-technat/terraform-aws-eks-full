@@ -17,16 +17,16 @@ resource "helm_release" "grafana" {
 
   values = [
     templatefile("${path.module}/helm_values/grafana.yaml", {
-        host = local.grafana_fqdn
-        class = local.ingress_class
-        rolearn = module.grafana_irsa.iam_role_arn
-        region = var.region
+      host    = local.grafana_fqdn
+      class   = local.ingress_class
+      rolearn = module.grafana_irsa.iam_role_arn
+      region  = var.region
 
     })
   ]
 
   set_sensitive {
-    name = "adminPassword"
+    name  = "adminPassword"
     value = random_password.grafana_password.result
   }
 
@@ -45,10 +45,10 @@ module "grafana_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "5.33.1"
 
-  role_name_prefix           = "grafana"
+  role_name_prefix = "grafana"
   role_policy_arns = {
     "CloudWatchReadOnlyAccess" = "arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"
- }
+  }
 
 
   oidc_providers = {

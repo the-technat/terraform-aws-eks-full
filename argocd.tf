@@ -54,8 +54,9 @@ resource "kubernetes_ingress_v1" "argocd_server" {
     namespace = kubernetes_namespace_v1.argocd.metadata[0].name
 
     annotations = {
-      "cert-manager.io/cluster-issuer"           = "letsencrypt-prod"
-      "ingress.kubernetes.io/force-ssl-redirect" = "true"
+      "cert-manager.io/cluster-issuer"               = "letsencrypt-prod"
+      "nginx.ingress.kubernetes.io/ssl-passthrough"  = "true"
+      "nginx.ingress.kubernetes.io/backend-protocol" = "HTTPS"
     }
   }
 
@@ -72,7 +73,7 @@ resource "kubernetes_ingress_v1" "argocd_server" {
             service {
               name = "argocd-server"
               port {
-                number = 443
+                name = "https"
               }
             }
           }
@@ -83,12 +84,12 @@ resource "kubernetes_ingress_v1" "argocd_server" {
 
     tls {
       hosts       = [local.argocd_fqdn]
-      secret_name = "argocd-tls"
+      secret_name = "argocd-server-tls"
     }
   }
   depends_on = [
     helm_release.cert_manager_extras,
-    helm_release.contour,
+    helm_release.ingress_nginx,
     helm_release.external_dns,
   ]
 }
@@ -134,5 +135,5 @@ resource "argocd_application" "app_of_apps" {
     }
   }
 
-  depends_on = [ helm_release.argocd, ]
+  depends_on = [helm_release.argocd, ]
 }

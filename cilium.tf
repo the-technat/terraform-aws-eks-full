@@ -83,7 +83,7 @@ resource "kubernetes_ingress_v1" "hubble_ui" {
   }
   depends_on = [
     helm_release.cert_manager_extras,
-    helm_release.contour,
+    helm_release.ingress_nginx,
     helm_release.external_dns,
   ]
 }

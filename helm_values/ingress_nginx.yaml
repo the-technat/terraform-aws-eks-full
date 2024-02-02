@@ -1,0 +1,30 @@
+controller:
+  extraArgs:
+    enable-ssl-passthrough: ""
+  service:
+    enabled: true
+    annotations: 
+      service.beta.kubernetes.io/aws-load-balancer-name: ingress-nginx
+      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+      service.beta.kubernetes.io/aws-load-balancer-ip-address-type: ipv4
+    externalTrafficPolicy: "Local"
+  ingressClassResource:
+    name: ${class}
+  ingressClass: ${class}
+   
+  metrics:  
+    enabled: true
+    service:
+      annotations: 
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "10254"
+     
+
+defaultBackend:
+  enabled: true
+  name: defaultbackend
+  image:
+    registry: ghcr.io
+    image: the-technat/alleaffengaffen
+    tag: "main"
+    

@@ -10,9 +10,9 @@ module "vpc" {
   public_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k)]
   private_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 10)]
 
-  enable_nat_gateway = true
+  enable_nat_gateway     = true
   one_nat_gateway_per_az = true # only active when below is turned off
-  single_nat_gateway = var.single_nat_gateway
+  single_nat_gateway     = var.single_nat_gateway
 
   # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.6/deploy/subnet_discovery/
   public_subnet_tags = {
