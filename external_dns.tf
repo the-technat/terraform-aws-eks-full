@@ -31,7 +31,7 @@ resource "helm_release" "external_dns" {
 
 module "aws_external_dns_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.33.1"
+  version = "5.34.0"
 
   role_name_prefix           = "external-dns"
   attach_external_dns_policy = true
