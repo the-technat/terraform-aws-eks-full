@@ -32,6 +32,8 @@ resource "helm_release" "grafana" {
 
   depends_on = [
     helm_release.vm,
+    helm_release.ingress_nginx,
+    helm_release.aws_ebs_csi_driver,
   ]
 }
 

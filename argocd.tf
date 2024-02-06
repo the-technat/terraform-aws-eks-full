@@ -33,7 +33,7 @@ resource "helm_release" "argocd" {
   }
 
   depends_on = [
-    helm_release.cluster_autoscaler,
+    helm_release.ingress_nginx,
   ]
 }
 

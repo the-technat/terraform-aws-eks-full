@@ -25,8 +25,7 @@ resource "helm_release" "aws_load_balancer_controller" {
   ]
 
   depends_on = [
-    helm_release.cilium,
-    module.eks,
+    helm_release.cluster_autoscaler,
   ]
 }
 

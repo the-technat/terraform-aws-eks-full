@@ -24,5 +24,8 @@ resource "helm_release" "ingress_nginx" {
 
   depends_on = [
     helm_release.cluster_autoscaler,
+    helm_release.external_dns,
+    helm_release.cert_manager,
+    helm_release.aws_load_balancer_controller,
   ]
 }
