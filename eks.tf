@@ -45,7 +45,7 @@ module "eks" {
     capacity_type  = var.capacity_type
     ami_type       = "AL2_${var.arch}"
     instance_types = var.instance_types
-    ami_id         = data.aws_ami.eks_default.image_id
+    ami_id         = var.arch == "x86_64" ? data.aws_ami.eks_default.image_id : data.aws_ami.eks_default_arm.image_id
     desired_size   = var.desired_count
 
     enable_monitoring = true
@@ -78,5 +78,4 @@ module "eks" {
 
   tags = var.tags
 
-  depends_on = [ module.vpc, ]
 }

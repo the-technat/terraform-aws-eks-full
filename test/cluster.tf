@@ -1,12 +1,12 @@
 module "eks_full" {
-  source = "git::https://github.com/the-technat/terraform-aws-eks-full.git"
+  source = "./.."
 
-  cluster_name      = "kiwi"
+  cluster_name      = "eks-full-test"
   region            = "eu-west-1"
-  dns_zone          = "day.technat.dev"
+  dns_zone          = "aws.technat.dev"
   account_id        = data.aws_caller_identity.current.account_id
-  onboarding_repo   = "https://github.com/the-technat/kubernetes-demo.git"
-  onboarding_folder = "apps"
+  onboarding_repo   = "https://github.com/the-technat/terraform-aws-eks-full.git"
+  onboarding_folder = "test/apps"
   email             = "technat+grapes@technat.ch"
 
   aws_auth_users = [
@@ -21,7 +21,6 @@ module "eks_full" {
 }
 
 data "aws_caller_identity" "current" {}
-
 
 ################
 # Outputs
