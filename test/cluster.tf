@@ -2,8 +2,8 @@ module "eks_full" {
   source = "./.."
 
   cluster_name      = "eks-full-test"
-  region            = "eu-west-1"
-  dns_zone          = "aws.technat.dev"
+  region            = "eu-west-1" # also change in providers.tf
+  dns_zone          = "aws.technat.dev" # also change in the NS records below
   account_id        = data.aws_caller_identity.current.account_id
   onboarding_repo   = "https://github.com/the-technat/terraform-aws-eks-full.git"
   onboarding_folder = "test/apps"
@@ -41,7 +41,7 @@ data "hetznerdns_zone" "dns_zone" {
 }
 resource "hetznerdns_record" "ns_records_zone_1" {
   zone_id = data.hetznerdns_zone.dns_zone.id
-  name    = "day"
+  name    = "aws"
   value   = "${module.eks_full.ns_records[0]}."
   type    = "NS"
   ttl     = 60
@@ -49,21 +49,21 @@ resource "hetznerdns_record" "ns_records_zone_1" {
 
 resource "hetznerdns_record" "ns_records_zone_2" {
   zone_id = data.hetznerdns_zone.dns_zone.id
-  name    = "day"
+  name    = "aws"
   value   = "${module.eks_full.ns_records[1]}."
   type    = "NS"
   ttl     = 60
 }
 resource "hetznerdns_record" "ns_records_zone_3" {
   zone_id = data.hetznerdns_zone.dns_zone.id
-  name    = "day"
+  name    = "aws"
   value   = "${module.eks_full.ns_records[2]}."
   type    = "NS"
   ttl     = 60
 }
 resource "hetznerdns_record" "ns_records_zone_4" {
   zone_id = data.hetznerdns_zone.dns_zone.id
-  name    = "day"
+  name    = "aws"
   value   = "${module.eks_full.ns_records[3]}."
   type    = "NS"
   ttl     = 60

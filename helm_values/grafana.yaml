@@ -3,16 +3,16 @@ replicas: 1
 ingress:
   enabled: true
   ingressClassName: ${class}
-  annotations: 
+  annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     ingress.kubernetes.io/force-ssl-redirect: "true"
   hosts:
     - ${host}
-  tls: 
+  tls:
     - secretName: grafana-tls
       hosts:
         - ${host}
- 
+
 datasources:
   datasources.yaml:
     apiVersion: 1
@@ -36,14 +36,14 @@ dashboardProviders:
   dashboardproviders.yaml:
     apiVersion: 1
     providers:
-    - name: 'upstream'
-      orgId: 1
-      folder: 'GrafanaLabs'
-      type: file
-      disableDeletion: true
-      editable: false
-      options:
-        path: /var/lib/grafana/dashboards/upstream
+      - name: "upstream"
+        orgId: 1
+        folder: "GrafanaLabs"
+        type: file
+        disableDeletion: true
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/upstream
 
 dashboards:
   upstream:
@@ -93,11 +93,12 @@ service:
 # configs done in the UI will persist pod-restarts due to the PV
 # but in case the PV is lost (which can happen), the configs will be gone
 persistence:
+  type: statefulset
   enabled: true
   storageClassName: ebs
- 
+
 adminUser: admin
-# adminPassword: set via argocd set 
+# adminPassword: set via argocd set
 
 serviceAccount:
   create: true
