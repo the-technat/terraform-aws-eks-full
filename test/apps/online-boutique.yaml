@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: online-boutique
+spec:
+  project: default
+  sources:
+  - repoURL: https://github.com/the-technat/kubernetes-demo.git
+    path: apps/online-boutique-extras
+    targetRevision: HEAD
+  - chart: onlineboutique 
+    repoURL: us-docker.pkg.dev/online-boutique-ci/charts
+    targetRevision: 0.9.0
+    helm:
+      releaseName: onlineboutique 
+      parameters:
+      - name: frontend.externalService
+        value: "false" # disables the integrated deployment of a loadbalancer
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: online-boutique
+  syncPolicy:
+    automated:
+      prune: true 
+      selfHeal: true
+      allowEmpty: false 
+    syncOptions:    
+    - CreateNamespace=true
+    - ServerSideApply=true
+    retry:
+      limit: 5 # number of failed sync attempt retries; unlimited number of attempts if less than 0
+      backoff:
+        duration: 5s # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
+        factor: 2 # a factor to multiply the base duration after each failed retry
+        maxDuration: 3m # the maximum amount of time allowed for the backoff strategy

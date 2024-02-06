@@ -1,11 +1,4 @@
 terraform {
-  backend "remote" {
-    organization = "technat"
-
-    workspaces {
-      name = "kubernetes-demo"
-    }
-  }
   required_version = ">= 1.0"
 
   required_providers {
@@ -23,9 +16,6 @@ terraform {
     }
     hetznerdns = {
       source = "timohirt/hetznerdns"
-    }
-    argocd = {
-      source = "oboukili/argocd"
     }
   }
 }
