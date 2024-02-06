@@ -38,7 +38,7 @@ dashboardProviders:
     providers:
       - name: "upstream"
         orgId: 1
-        folder: "GrafanaLabs"
+        folder: "Upstream"
         type: file
         disableDeletion: true
         editable: false
@@ -71,10 +71,6 @@ dashboards:
       gnetId: 12111
       revision: 2
       datasource: CloudWatch
-    ingress_nginx:
-      gnetId: 14314
-      revision: 2
-      datasource: VictoriaMetrics
     cluster_autoscaler:
       gnetId: 3831
       revision: 1
@@ -82,6 +78,10 @@ dashboards:
     coredns:
       gnetId: 14981
       revision: 2
+      datasource: VictoriaMetrics
+    ingress_nginx:
+      url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/grafana/dashboards/nginx.json
+      token: ""
       datasource: VictoriaMetrics
 
 service:
