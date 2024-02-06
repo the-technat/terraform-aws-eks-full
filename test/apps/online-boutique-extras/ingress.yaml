@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: shop.day.technat.dev
+    - host: shop.aws.technat.dev
       http:
         paths:
           - backend:
@@ -20,5 +20,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - shop.day.technat.dev
+        - shop.aws.technat.dev
       secretName: frontend-tls

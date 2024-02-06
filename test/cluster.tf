@@ -2,7 +2,7 @@ module "eks_full" {
   source = "./.."
 
   cluster_name      = "eks-full-test"
-  region            = "eu-west-1" # also change in providers.tf
+  region            = "eu-west-1"       # also change in providers.tf
   dns_zone          = "aws.technat.dev" # also change in the NS records below
   account_id        = data.aws_caller_identity.current.account_id
   onboarding_repo   = "https://github.com/the-technat/terraform-aws-eks-full.git"
