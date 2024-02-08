@@ -25,6 +25,7 @@ resource "helm_release" "aws_ebs_csi_driver" {
 
   depends_on = [
     helm_release.cluster_autoscaler,
+    helm_release.aws_load_balancer_controller,
   ]
 }
 

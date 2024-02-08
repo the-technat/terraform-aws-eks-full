@@ -23,6 +23,7 @@ resource "helm_release" "cert_manager" {
 
   depends_on = [
     helm_release.cluster_autoscaler,
+    helm_release.aws_load_balancer_controller,
   ]
 }
 
