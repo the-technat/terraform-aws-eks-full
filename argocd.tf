@@ -100,7 +100,7 @@ resource "argocd_application" "app_of_apps" {
     namespace = "argocd"
   }
 
-  cascade = false # disable cascading deletion
+  cascade = true
   wait    = true
 
   spec {
