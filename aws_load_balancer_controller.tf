@@ -11,7 +11,7 @@ resource "helm_release" "aws_load_balancer_controller" {
   name       = local.albc_name
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-load-balancer-controller"
-  version    = "1.7.0"
+  version    = "1.7.1"
   namespace  = kubernetes_namespace_v1.albc.metadata[0].name
 
   values = [
