@@ -33,7 +33,7 @@ resource "helm_release" "cluster_autoscaler" {
 
 module "aws_cluster_autoscaler_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.34.0"
+  version = "5.35.0"
 
   role_name_prefix                 = "cluster-autoscaler"
   attach_cluster_autoscaler_policy = true
