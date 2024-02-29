@@ -4,23 +4,24 @@ An opiniated Terraform monolith that deploys an EKS cluster including it's netwo
 
 ## Usage
 
-Please don't use this module! It's highly opiniated and not meant for others to use.
+Please don't use this module! It's highly opiniated and not meant for others to use (at least not now).
 
 ## Technical Debts
 
 Currently most of the stuff the module deploys works, however:
-- Many things can't be controlled from the outside (like feature toggles)
+- Many things can't be controlled from the outside (like feature toggles or config overrides)
 - No app is HA (to be discussed if needed or added as feature toggle)
-- No app is secure (missing securityContexts)
-- No app has resource requests/limits 
-- No app has network policies
+- No app is secure (missing securityContexts, except apps that are secure by default)
+- No app has resource requests/limits (expect apps that have defaults)
+- No app has network policies 
 - No app has authentication (and those who have, just have a local admin user only suitable for Terraform)
 
 ## Design Decisions
 
 - Everything is deployed using Terraform 
+- Infrastructure addons are deploying using the helm provider
 - Dependencies shall be strict and clear, providing seamless deploy and destroy runs 
-- Everything is scraped using service-based discovery
+- Metrics are enabled for almost all components and scraped using service-based discovery 
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -29,9 +30,9 @@ Currently most of the stuff the module deploys works, however:
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 | <a name="requirement_argocd"></a> [argocd](#requirement\_argocd) | 6.0.3 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | 5.34.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | 5.37.0 |
 | <a name="requirement_bcrypt"></a> [bcrypt](#requirement\_bcrypt) | 0.1.2 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.25.2 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.26.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.6.0 |
 
 ## Providers
@@ -39,32 +40,32 @@ Currently most of the stuff the module deploys works, however:
 | Name | Version |
 |------|---------|
 | <a name="provider_argocd"></a> [argocd](#provider\_argocd) | 6.0.3 |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.34.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.37.0 |
 | <a name="provider_bcrypt"></a> [bcrypt](#provider\_bcrypt) | 0.1.2 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.12.1 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.25.2 |
-| <a name="provider_null"></a> [null](#provider\_null) | 3.2.2 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.26.0 |
+| <a name="provider_null"></a> [null](#provider\_null) | n/a |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.6.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_aws_cluster_autoscaler_irsa"></a> [aws\_cluster\_autoscaler\_irsa](#module\_aws\_cluster\_autoscaler\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.33.1 |
-| <a name="module_aws_ebs_csi_driver_irsa"></a> [aws\_ebs\_csi\_driver\_irsa](#module\_aws\_ebs\_csi\_driver\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.33.1 |
-| <a name="module_aws_external_dns_irsa"></a> [aws\_external\_dns\_irsa](#module\_aws\_external\_dns\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.33.1 |
-| <a name="module_aws_load_balancer_controller_irsa"></a> [aws\_load\_balancer\_controller\_irsa](#module\_aws\_load\_balancer\_controller\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.33.1 |
-| <a name="module_cert_manager_dns_01_irsa"></a> [cert\_manager\_dns\_01\_irsa](#module\_cert\_manager\_dns\_01\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.33.1 |
+| <a name="module_aws_cluster_autoscaler_irsa"></a> [aws\_cluster\_autoscaler\_irsa](#module\_aws\_cluster\_autoscaler\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.34.0 |
+| <a name="module_aws_ebs_csi_driver_irsa"></a> [aws\_ebs\_csi\_driver\_irsa](#module\_aws\_ebs\_csi\_driver\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.34.0 |
+| <a name="module_aws_external_dns_irsa"></a> [aws\_external\_dns\_irsa](#module\_aws\_external\_dns\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.34.0 |
+| <a name="module_aws_load_balancer_controller_irsa"></a> [aws\_load\_balancer\_controller\_irsa](#module\_aws\_load\_balancer\_controller\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.34.0 |
+| <a name="module_cert_manager_dns_01_irsa"></a> [cert\_manager\_dns\_01\_irsa](#module\_cert\_manager\_dns\_01\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.34.0 |
 | <a name="module_eks"></a> [eks](#module\_eks) | terraform-aws-modules/eks/aws | 19.21.0 |
-| <a name="module_grafana_irsa"></a> [grafana\_irsa](#module\_grafana\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.33.1 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 5.5.1 |
+| <a name="module_grafana_irsa"></a> [grafana\_irsa](#module\_grafana\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.34.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 5.5.2 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
 | [argocd_application.app_of_apps](https://registry.terraform.io/providers/oboukili/argocd/6.0.3/docs/resources/application) | resource |
-| [aws_route53_zone.primary](https://registry.terraform.io/providers/hashicorp/aws/5.34.0/docs/resources/route53_zone) | resource |
+| [aws_route53_zone.primary](https://registry.terraform.io/providers/hashicorp/aws/5.37.0/docs/resources/route53_zone) | resource |
 | [bcrypt_hash.argocd_password](https://registry.terraform.io/providers/viktorradnai/bcrypt/0.1.2/docs/resources/hash) | resource |
 | [helm_release.argocd](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.aws_ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
@@ -78,25 +79,28 @@ Currently most of the stuff the module deploys works, however:
 | [helm_release.ingress_nginx](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.ksm](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.metrics_server](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.node_exporter](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.vm](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [kubernetes_ingress_v1.argocd_server](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/ingress_v1) | resource |
-| [kubernetes_ingress_v1.hubble_ui](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/ingress_v1) | resource |
-| [kubernetes_namespace_v1.albc](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
-| [kubernetes_namespace_v1.argocd](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
-| [kubernetes_namespace_v1.aws_ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
-| [kubernetes_namespace_v1.cert_manager](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
-| [kubernetes_namespace_v1.cluster_autoscaler](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
-| [kubernetes_namespace_v1.external_dns](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
-| [kubernetes_namespace_v1.grafana](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
-| [kubernetes_namespace_v1.ingress_nginx](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
-| [kubernetes_namespace_v1.ksm](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
-| [kubernetes_namespace_v1.metrics_server](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
-| [kubernetes_namespace_v1.vm](https://registry.terraform.io/providers/hashicorp/kubernetes/2.25.2/docs/resources/namespace_v1) | resource |
+| [kubernetes_ingress_v1.argocd_server](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/ingress_v1) | resource |
+| [kubernetes_ingress_v1.hubble_ui](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/ingress_v1) | resource |
+| [kubernetes_namespace_v1.albc](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.argocd](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.aws_ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.cert_manager](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.cluster_autoscaler](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.external_dns](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.grafana](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.ingress_nginx](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.ksm](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.metrics_server](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.node_exporter](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/namespace_v1) | resource |
+| [kubernetes_namespace_v1.vm](https://registry.terraform.io/providers/hashicorp/kubernetes/2.26.0/docs/resources/namespace_v1) | resource |
 | [null_resource.purge_aws_networking](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [random_password.argocd_password](https://registry.terraform.io/providers/hashicorp/random/3.6.0/docs/resources/password) | resource |
 | [random_password.grafana_password](https://registry.terraform.io/providers/hashicorp/random/3.6.0/docs/resources/password) | resource |
-| [aws_ami.eks_default](https://registry.terraform.io/providers/hashicorp/aws/5.34.0/docs/data-sources/ami) | data source |
-| [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/5.34.0/docs/data-sources/availability_zones) | data source |
+| [aws_ami.eks_default](https://registry.terraform.io/providers/hashicorp/aws/5.37.0/docs/data-sources/ami) | data source |
+| [aws_ami.eks_default_arm](https://registry.terraform.io/providers/hashicorp/aws/5.37.0/docs/data-sources/ami) | data source |
+| [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/5.37.0/docs/data-sources/availability_zones) | data source |
 
 ## Inputs
 
