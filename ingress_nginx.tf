@@ -14,6 +14,7 @@ resource "helm_release" "ingress_nginx" {
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart      = "ingress-nginx"
   version    = "4.10.0"
+  timeout    = 900
   namespace  = kubernetes_namespace_v1.ingress_nginx.metadata[0].name
 
   values = [

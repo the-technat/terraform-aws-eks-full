@@ -10,7 +10,7 @@ module "eks" {
       most_recent = true
     }
   }
-  
+
   # Monitoring
   cloudwatch_log_group_retention_in_days = 1
 
