@@ -5,6 +5,7 @@ resource "kubernetes_namespace_v1" "aws_ebs_csi_driver" {
   metadata {
     name = local.aws_ebs_csi_driver_name
   }
+  depends_on = [module.eks]
 }
 
 

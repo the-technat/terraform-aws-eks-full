@@ -5,6 +5,7 @@ resource "kubernetes_namespace_v1" "cert_manager" {
   metadata {
     name = local.cert_manager_name
   }
+  depends_on = [module.eks]
 }
 
 

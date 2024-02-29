@@ -5,6 +5,8 @@ resource "kubernetes_namespace_v1" "external_dns" {
   metadata {
     name = local.external_dns_name
   }
+
+  depends_on = [module.eks]
 }
 
 resource "helm_release" "external_dns" {

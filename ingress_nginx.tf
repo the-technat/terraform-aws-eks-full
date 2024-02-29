@@ -7,6 +7,7 @@ resource "kubernetes_namespace_v1" "ingress_nginx" {
   metadata {
     name = local.ingress_nginx_name
   }
+  depends_on = [module.eks]
 }
 
 resource "helm_release" "ingress_nginx" {

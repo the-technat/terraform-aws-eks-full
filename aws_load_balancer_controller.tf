@@ -5,6 +5,7 @@ resource "kubernetes_namespace_v1" "albc" {
   metadata {
     name = local.albc_name
   }
+  depends_on = [module.eks]
 }
 
 resource "helm_release" "aws_load_balancer_controller" {

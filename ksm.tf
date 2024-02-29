@@ -6,6 +6,7 @@ resource "kubernetes_namespace_v1" "ksm" {
   metadata {
     name = local.ksm_name
   }
+  depends_on = [module.eks]
 }
 
 resource "helm_release" "ksm" {

@@ -6,6 +6,7 @@ resource "kubernetes_namespace_v1" "grafana" {
   metadata {
     name = local.grafana_name
   }
+  depends_on = [module.eks]
 }
 
 resource "helm_release" "grafana" {

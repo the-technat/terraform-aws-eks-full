@@ -5,6 +5,7 @@ resource "kubernetes_namespace_v1" "metrics_server" {
   metadata {
     name = local.metrics_server_name
   }
+  depends_on = [module.eks]
 }
 
 resource "helm_release" "metrics_server" {

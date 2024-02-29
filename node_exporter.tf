@@ -6,6 +6,7 @@ resource "kubernetes_namespace_v1" "node_exporter" {
   metadata {
     name = local.node_exporter_name
   }
+  depends_on = [module.eks]
 }
 
 resource "helm_release" "node_exporter" {

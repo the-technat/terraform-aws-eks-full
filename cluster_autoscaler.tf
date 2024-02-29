@@ -6,6 +6,7 @@ resource "kubernetes_namespace_v1" "cluster_autoscaler" {
   metadata {
     name = local.cluster_autoscaler_name
   }
+  depends_on = [module.eks]
 }
 
 resource "helm_release" "cluster_autoscaler" {
