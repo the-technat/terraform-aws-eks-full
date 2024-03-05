@@ -13,7 +13,7 @@ resource "helm_release" "ksm" {
   name       = local.ksm_name
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-state-metrics"
-  version    = "5.16.2"
+  version    = "5.16.3"
   namespace  = kubernetes_namespace_v1.ksm.metadata[0].name
 
   values = [
