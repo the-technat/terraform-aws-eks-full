@@ -12,7 +12,7 @@ resource "helm_release" "vm" {
   name       = local.vm_name
   repository = "https://victoriametrics.github.io/helm-charts/"
   chart      = "victoria-metrics-single"
-  version    = "0.9.15"
+  version    = "0.9.16"
   namespace  = kubernetes_namespace_v1.vm.metadata[0].name
 
   values = [
