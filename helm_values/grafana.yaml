@@ -83,6 +83,10 @@ dashboards:
       url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/grafana/dashboards/nginx.json
       token: ""
       datasource: VictoriaMetrics
+    workload:
+      gnetId: 17685
+      revision: 1
+      datasource: VictoriaMetrics
 
 service:
   annotations:
