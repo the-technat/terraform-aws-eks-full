@@ -23,6 +23,5 @@ resource "helm_release" "node_exporter" {
 
   depends_on = [
     helm_release.cluster_autoscaler,
-    helm_release.vm,
   ]
 }
