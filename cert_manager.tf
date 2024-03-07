@@ -51,7 +51,7 @@ resource "helm_release" "cert_manager_extras" {
 
 module "cert_manager_dns_01_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.37.0"
+  version = "5.37.1"
 
   role_name_prefix           = "cert-manager"
   attach_cert_manager_policy = true
