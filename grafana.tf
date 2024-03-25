@@ -46,7 +46,7 @@ resource "random_password" "grafana_password" {
 
 module "grafana_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.37.1"
+  version = "5.37.2"
 
   role_name_prefix = "grafana"
   role_policy_arns = {
